@@ -1,0 +1,6 @@
+# Include the README
+include *.md
+
+# Include the license file and author list
+include LICENSE
+include AUTHORS
