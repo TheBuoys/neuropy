@@ -1,0 +1,77 @@
+{
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://example.com/root.json",
+  "type": "object",
+  "title": "The Root Schema",
+  "required": [
+    "name",
+    "data",
+    "logs",
+    "output",
+    "data_loader",
+    "model"
+  ],
+  "properties": {
+    "name": {
+      "$id": "#/properties/name",
+      "type": "string",
+      "title": "The Name Schema",
+      "default": "",
+      "examples": [
+        "Name"
+      ],
+      "pattern": "^(.*)$"
+    },
+    "data": {
+      "$id": "#/properties/data",
+      "type": "string",
+      "title": "The Data Schema",
+      "default": "",
+      "examples": [
+        "./data/"
+      ],
+      "pattern": "^(.*)$"
+    },
+    "logs": {
+      "$id": "#/properties/logs",
+      "type": "string",
+      "title": "The Logs Schema",
+      "default": "",
+      "examples": [
+        "./logs/"
+      ],
+      "pattern": "^(.*)$"
+    },
+    "output": {
+      "$id": "#/properties/output",
+      "type": "string",
+      "title": "The Output Schema",
+      "default": "",
+      "examples": [
+        "./predictions/"
+      ],
+      "pattern": "^(.*)$"
+    },
+    "data_loader": {
+      "$id": "#/properties/data_loader",
+      "type": "string",
+      "title": "The Data_loader Schema",
+      "default": "",
+      "examples": [
+        "./src/processors/data_loader.py"
+      ],
+      "pattern": "^(.*)$"
+    },
+    "model": {
+      "$id": "#/properties/model",
+      "type": "string",
+      "title": "The Model Schema",
+      "default": "",
+      "examples": [
+        "./models/tectonix_v1/"
+      ],
+      "pattern": "^(.*)$"
+    }
+  }
+}
