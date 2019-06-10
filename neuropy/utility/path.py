@@ -11,20 +11,15 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+import argparse
+import os
 
-from enum import Enum
+class Path(argparse.Action):
+    def __init__(self, option_strings, dest, nargs=None, **kwargs):
+        # if nargs is not None:
+        #     raise ValueError("nargs not allowed")
+        super(Path, self).__init__(option_strings, dest, **kwargs)
 
-class Color(Enum):
-    BLACK           = 30
-    RED             = 31
-    GREEN           = 32
-    YELLOW          = 33
-    BLUE            = 34
-    MAGENTA         = 35
-    CYAN            = 36
-    WHITE           = 37
-    RESET           = 39
-
-def colorprint(color, text, *other, end='\n'):
-    """Print text in selected color using ANSI color codes."""
-    print('\033[' + str(color.value) + 'm' + text + " ".join(other) + '\033[0m', end=end)
+    def __call__(self, parser, namespace, values, option_string=None):
+        path = os.path.abspath(values)
+        setattr(namespace, self.dest, path)

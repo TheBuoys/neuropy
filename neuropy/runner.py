@@ -15,12 +15,12 @@
 import os
 import logging
 
-from src.utility.arguments import get_arguments
-from src.utility.printer import Color, colorprint
-from src.utility.configuration import load_project_configuration
-from src.utility.validator import validate_project
-from src.utility.validator import validate_optional_arguments
-from src.agent import Agent
+from neuropy.utility.arguments import get_arguments
+from neuropy.utility.printer import Color, colorprint
+from neuropy.utility.configuration import load_project_configuration
+from neuropy.utility.validator import validate_project
+from neuropy.utility.validator import validate_optional_arguments
+from neuropy.agent import Agent
 
 def run(arguments):
     output = None
