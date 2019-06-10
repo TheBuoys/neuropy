@@ -1,0 +1,31 @@
+# Use official Python language image:
+image: python:latest
+
+# Change pip's cache directory to be inside the project directory since we can
+# only cache local items.
+variables:
+  PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+
+# Cache virtualenv because Pip's cache doesn't store the python packages
+cache:
+  paths:
+    - .cache/pip
+    - .venv/
+
+before_script:
+  - python --version
+
+stages:
+  - test
+  - deploy
+
+test:
+  stage: test
+  script: 
+    - echo "Testing occurs here."
+
+pypi:
+  stage: deploy
+  script:
+    - echo "Deploy occurs here."
+  when: manual
