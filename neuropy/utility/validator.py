@@ -14,7 +14,7 @@
 
 import os
 
-from src.utility.printer import Color, colorprint
+from neuropy.utility.printer import Color, colorprint
 
 def validate_project(configuration):
     print('Validating project configuration...', end=' ')

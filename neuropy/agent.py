@@ -15,11 +15,10 @@
 import tensorflow as tf
 import importlib
 import os
-from src.utility.validator import validate_model
-from src.utility.validator import validate_model_configuration
-from src.utility.configuration import load_model_configuration
-from src.utility.configuration import load_model_parameters
-from src.processors.postprocess import postprocess
+from neuropy.utility.validator import validate_model
+from neuropy.utility.validator import validate_model_configuration
+from neuropy.utility.configuration import load_model_configuration
+from neuropy.utility.configuration import load_model_parameters
 
 class Agent:
     def __init__(self, configuration, arguments):
@@ -87,4 +86,4 @@ class Agent:
 
     def infer(self):
         predictions = list(self.estimator.predict(input_fn=self.data_loader.get_inference_dataset))
-        return postprocess(predictions) # Passes results both ways
+        return predictions

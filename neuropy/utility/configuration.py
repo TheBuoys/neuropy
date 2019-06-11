@@ -17,7 +17,7 @@ import os
 import sys
 
 from jsonschema import Draft7Validator
-from src.utility.printer import Color, colorprint
+from neuropy.utility.printer import Color, colorprint
 
 def load_configuration_from_json(json_file):
     """
@@ -32,13 +32,17 @@ def load_configuration_from_json(json_file):
 
 def load_project_configuration(json_file):
     print('Loading project configuration...', end=' ')
+
+    if (not os.path.exists(json_file)):
+        colorprint(Color.RED, 'failed\nProject configuration file not found at ', json_file)
+        exit(1)
+    
     configuration = load_configuration_from_json(json_file)
     os.path.join(os.path.dirname(__file__), '..')
     # This does not work if the __main__ is not in the project root
     # TODO: get a consistent way to refer to the project root
     # schema_path = os.path.join(os.path.dirname(sys.modules['__main__'].__file__), 'src/schemas/project.json')
     schema_path = os.path.join(os.path.dirname(__file__), '../schemas/project.json')
-
 
     schema = load_configuration_from_json(schema_path)
     validator = Draft7Validator(schema)
@@ -47,7 +51,7 @@ def load_project_configuration(json_file):
         return configuration
     else:
         colorprint(Color.RED, 'failed\nInvalid project configuration')
-        for error in sorted(validator.iter_errors(configuration), key=str):
+        for error in sorted(validator.load_project_configurationiter_errors(configuration), key=str):
             colorprint(Color.RED, error.message)
         exit(1)
 
