@@ -9,7 +9,7 @@ stages:
   - run tests
   - deploy
 
-entry point:
+unit test 1:
   stage: unit tests
   script: 
     - echo "Unit tests occur here."
@@ -17,22 +17,26 @@ entry point:
 entry point:
   stage: run tests
   script: 
-    - neuro
+    - neuro -h
+#    - neuro
 
 environment:
   stage: run tests
   script: 
-    - neuro -e
+    - neuro -h
+#    - neuro -e
 
 train:
   stage: run tests
   script: 
-    - neuro -t
+    - neuro -h
+#    - neuro -t
 
 infer:
   stage: run tests
   script: 
-    - neuro -i
+    - neuro -h
+#    - neuro -i
 
 MindCloud:
   stage: deploy
