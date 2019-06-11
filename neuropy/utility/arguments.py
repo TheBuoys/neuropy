@@ -16,7 +16,7 @@ import argparse
 
 from neuropy.utility.path import Path
 
-def get_arguments():
+def get_arguments(arguments=None):
         parser = argparse.ArgumentParser(
                 prog='neuro'
         )
@@ -60,5 +60,5 @@ def get_arguments():
                 action='store_true',
                 help='output TensorFlow warnings and errors to the terminal')
 
-        ARGUMENTS = parser.parse_args()
+        ARGUMENTS = parser.parse_args(arguments)
         return ARGUMENTS
