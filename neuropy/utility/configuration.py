@@ -17,7 +17,7 @@ import os
 import sys
 
 from jsonschema import Draft7Validator
-from neuropy.utility.printer import Color, colorprint
+from termcolor import cprint
 
 def load_configuration_from_json(json_file):
     """
@@ -34,7 +34,7 @@ def load_project_configuration(json_file):
     print('Loading project configuration...', end=' ')
 
     if (not os.path.exists(json_file)):
-        colorprint(Color.RED, 'failed\nProject configuration file not found at ', json_file)
+        cprint('failed\nProject configuration file not found at ' + json_file, 'red')
         exit(1)
     
     configuration = load_configuration_from_json(json_file)
@@ -47,12 +47,12 @@ def load_project_configuration(json_file):
     schema = load_configuration_from_json(schema_path)
     validator = Draft7Validator(schema)
     if validator.is_valid(configuration):
-        colorprint(Color.GREEN, 'done')
+        cprint('done', 'green')
         return configuration
     else:
-        colorprint(Color.RED, 'failed\nInvalid project configuration')
+        cprint('failed\nInvalid project configuration', 'red')
         for error in sorted(validator.load_project_configurationiter_errors(configuration), key=str):
-            colorprint(Color.RED, error.message)
+            cprint(error.message, 'red')
         exit(1)
 
 def load_model_configuration(json_file):
@@ -62,12 +62,12 @@ def load_model_configuration(json_file):
     schema = load_configuration_from_json(schema_path)
     validator = Draft7Validator(schema)
     if validator.is_valid(configuration):
-        colorprint(Color.GREEN, 'done')
+        cprint('done', 'green')
         return configuration
     else:
-        colorprint(Color.RED, 'failed\nInvalid model configuration')
+        cprint('failed\nInvalid model configuration', 'red')
         for error in sorted(validator.iter_errors(configuration), key=str):
-            colorprint(Color.RED, error.message)
+            cprint(error.message, 'red')
         exit(1)
     
     return configuration
@@ -79,12 +79,12 @@ def load_model_parameters(json_file):
     schema = load_configuration_from_json(schema_path)
     validator = Draft7Validator(schema)
     if validator.is_valid(configuration):
-        colorprint(Color.GREEN, 'done')
+        cprint('done', 'green')
         return configuration
     else:
-        colorprint(Color.RED, 'failed\nInvalid model parameters')
+        cprint('failed\nInvalid model parameters', 'red')
         for error in sorted(validator.iter_errors(configuration), key=str):
-            colorprint(Color.RED, error.message)
+            cprint(error.message, 'red')
         exit(1)
     
     return configuration
