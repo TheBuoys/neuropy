@@ -29,7 +29,8 @@ setuptools.setup(
     install_requires=[
             'tensorflow',
             'termcolor',
-            'jsonschema'
+            'jsonschema',
+            'virtualenv'
         ],
     entry_points={
         'console_scripts': [
