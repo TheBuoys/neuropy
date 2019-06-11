@@ -1,0 +1,8 @@
+{
+    "name": "Simple Project",
+    "data": "./data/",
+    "logs": "./logs/",
+    "output": "./predictions/",
+    "data_loader": "./src/processors/data_loader.py",
+    "model": "./models/tectonix_v1/"
+}

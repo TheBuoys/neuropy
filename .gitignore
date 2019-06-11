@@ -104,7 +104,6 @@ venv/
 ENV/
 env.bak/
 venv.bak/
-dev/
 
 # Spyder project settings
 .spyderproject
@@ -124,5 +123,5 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-# VSCode
-.vscode/
+# VSCode?
+XDG_CACHE_HOME/

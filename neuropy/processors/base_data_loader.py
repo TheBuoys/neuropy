@@ -11,9 +11,22 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+from abc import ABC, abstractmethod
 
 class BaseDataLoader:
     def __init__(self, configuration, arguments):
         self.arguments = arguments
         self.configuration = configuration
         self.data_path = configuration['data']
+
+    @abstractmethod
+    def get_inference_dataset():
+        pass
+
+    @abstractmethod
+    def get_training_dataset():
+        pass
+
+    @abstractmethod
+    def get_validation_dataset():
+        pass

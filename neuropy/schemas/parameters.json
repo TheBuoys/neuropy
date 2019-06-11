@@ -4,9 +4,7 @@
     "$id": "http://example.com/root.json",
     "type": "object",
     "title": "The Root Schema",
-    "required": [
-      "test"
-    ],
+    "required": [],
     "properties": {
       "test": {
         "$id": "#/properties/test",
