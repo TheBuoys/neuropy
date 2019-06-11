@@ -10,6 +10,11 @@ stages:
   - deploy
 
 entry point:
+  stage: unit tests
+  script: 
+    - echo "Unit tests occur here."
+
+entry point:
   stage: run tests
   script: 
     - neuro
