@@ -20,13 +20,18 @@ setuptools.setup(
     # needs updating
     classifiers=[
         "Programming Language :: Python :: 3",
-        "License :: OSI Approved :: MIT License",
+        "License :: OSI Approved :: Apache License",
         "Operating System :: OS Independent",
     ],
     keywords='tensorflow development',
     # needs verification
     python_requires='>=3.0.*, <4',
-    install_requires=['tensorflow'],
+    install_requires=[
+            'tensorflow',
+            'termcolor',
+            'jsonschema',
+            'virtualenv'
+        ],
     entry_points={
         'console_scripts': [
             'neuro=neuropy.__main__:main',

@@ -16,43 +16,22 @@ import os
 import sys
 import virtualenv
 import pip
-
+import subprocess
 
 from neuropy.runner import run
 from neuropy.utility.arguments import get_arguments
-from neuropy.utility.printer import Color, colorprint
-import subprocess
+from neuropy.utility.environment_handler import initialize
 
-def initialize(arguments):
-    # Load virtualenv
-    if (not arguments.environment):
-        return
+def main(args=None):
+    if args is None:
+        args = sys.argv[1:]
 
-    colorprint(Color.GREEN, 'Initializing environment...')
-    venv_dir = os.path.abspath(os.path.join(arguments.project_path, ".venv"))
-
-    if not os.path.exists(venv_dir):
-        colorprint(Color.YELLOW, 'failed\nVirtual environment not found')
-        colorprint(Color.YELLOW, 'Creating new python virtual environment...', end = ' ')
-        # create and activate the virtual environment
-        virtualenv.create_environment(venv_dir)
-
-        # pip install a package using the venv as a prefix
-        # pip.main(["install", "--prefix", venv_dir, ])
-        subprocess.check_call([sys.executable, '-m', '{venv_dir}/bin/pip', 'install', os.path.join(arguments.project_path,'requirements.txt')])
-        
-        colorprint(Color.GREEN, 'done')
-    
-    print('Loading virtualenv...', end=' ')
-
-    # Activate virtualenv
-    activation_script = os.path.join(venv_dir, 'bin/activate_this.py')
-    exec(open(activation_script).read(), {'__file__': activation_script})
-    colorprint(Color.GREEN, 'done')
-
-if __name__ == '__main__':
     # Parse arguments
     arguments = get_arguments()
     # Initialize and run
     initialize(arguments)
     run(arguments)
+
+
+if __name__ == '__main__':
+    main()

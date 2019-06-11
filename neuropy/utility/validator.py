@@ -14,7 +14,7 @@
 
 import os
 
-from neuropy.utility.printer import Color, colorprint
+from termcolor import cprint
 
 def validate_project(configuration):
     print('Validating project configuration...', end=' ')
@@ -23,46 +23,46 @@ def validate_project(configuration):
     model_directory = os.path.exists(configuration['model'])
     model = os.listdir(configuration['model'])
     if not (model and model_directory):
-        colorprint(Color.RED, 'failed')
+        cprint('failed', 'red')
         if not model_directory:
-            colorprint(Color.RED, 'Model directory not found')
+            cprint('Model directory not found', 'red')
         elif not model:
-            colorprint(Color.RED, 'Model directory is empty')
+            cprint('Model directory is empty', 'red')
         exit(1)
 
     # Validate Data Loader path exists
     if not os.path.exists(configuration['data_loader']):
-        colorprint(Color.RED, 'failed\nData Loader not found')
+        cprint('failed\nData Loader not found', 'red')
         exit(1)
 
     # Validate data path not empty
     data_directory = os.path.exists(configuration['data'])
     data = os.listdir(configuration['data'])
     if not (data and data_directory):
-        colorprint(Color.RED, 'failed')
+        cprint('failed', 'red')
         if not data_directory:
-            colorprint(Color.RED, 'Data directory not found')
+            cprint('Data directory not found', 'red')
         elif not data:
-            colorprint(Color.RED, 'Data directory is empty')
+            cprint('Data directory is empty', 'red')
         exit(1)
 
     logs = os.path.exists(configuration['logs'])
     output = os.path.exists(configuration['output'])
     
     if not (logs or output):
-        colorprint(Color.YELLOW, 'failed')
+        cprint('failed', 'yellow')
 
         if not logs:
-            colorprint(Color.YELLOW, 'Log folder not found, creating...', end=' ')
+            cprint('Log folder not found, creating...', 'yellow', end=' ')
             os.mkdir(os.path.abspath(configuration['logs']))
-            colorprint(Color.GREEN, 'done')
+            cprint('done', 'green')
 
         if not output:
-            colorprint(Color.YELLOW, 'Output folder not found, creating...', end=' ')
+            cprint('Output folder not found, creating...', 'yellow', end=' ')
             os.mkdir(os.path.abspath(configuration['output']))
-            colorprint(Color.GREEN, 'done')
+            cprint('done', 'green')
     else:
-        colorprint(Color.GREEN, 'done')
+        cprint('done', 'green')
 
     return
 
@@ -75,17 +75,17 @@ def validate_model(model):
     }
 
     if not all(conditions[name] == True for name in conditions):
-        colorprint(Color.RED, 'failed')
+        cprint('failed', 'red')
         for name in conditions:
             if not conditions[name] == True:
-                colorprint(Color.RED, name + " not found")
+                cprint(name + ' not found', 'red')
         exit(1)
 
     if not os.path.exists(os.path.join(model,"weights")):
-        colorprint(Color.YELLOW, 'failed\nWeights folder not found, creating...', end=' ')
+        cprint('failed\nWeights folder not found, creating...', 'yellow', end=' ')
         os.mkdir(os.path.abspath(os.path.join(model,"weights")))
 
-    colorprint(Color.GREEN, 'done')
+    cprint('done', 'green')
 
     return
 
@@ -103,19 +103,19 @@ def validate_model_configuration(path, configuration):
 
     # Validate log path
     if not (load_from and save_to and load_from_path_not_empty):
-        colorprint(Color.YELLOW, 'failed')
+        cprint('failed', 'yellow')
 
         if not (load_from and load_from_path_not_empty):
-            colorprint(Color.YELLOW, 'Warm start file not found, reverting to cold start...', end=' ')
+            cprint('Warm start file not found, reverting to cold start...', 'yellow', end=' ')
             configuration['load_from'] = None
-            colorprint(Color.GREEN, 'done')
+            cprint('done', 'green')
 
         if not save_to:
-            colorprint(Color.YELLOW, 'Model save folder not found, creating...', end=' ')
+            cprint('Model save folder not found, creating...', 'yellow', end=' ')
             os.mkdir(os.path.join(os.path.abspath(path), configuration['save_to']))
-            colorprint(Color.GREEN, 'done')
+            cprint('done', 'green')
     else:
-        colorprint(Color.GREEN, 'done')
+        cprint('done', 'green')
 
     return
 
@@ -125,21 +125,21 @@ def validate_optional_arguments(arguments):
 
     if arguments.infer_path:
         if not (os.path.exists(arguments.infer_path)):
-            colorprint(Color.RED, 'failed\nOptional infer path was specified but does not exist')
+            cprint('failed\nOptional infer path was specified but does not exist', 'red')
             exit(1)
 
         if (os.path.isdir(arguments.infer_path) and not os.listdir(arguments.infer_path)):
-            colorprint(Color.RED, 'failed\nOptional infer path is a directory but it is empty')
+            cprint('failed\nOptional infer path is a directory but it is empty', 'red')
             exit(1)
 
     if arguments.train_path:
         if not (os.path.exists(arguments.train_path)):
-            colorprint(Color.RED, 'failed\nOptional train path was specified but does not exist')
+            cprint('failed\nOptional train path was specified but does not exist', 'red')
             exit(1)
 
         if (os.path.isdir(arguments.train_path) and not os.listdir(arguments.train_path)):
-            colorprint(Color.RED, 'failed\nOptional train path is a directory but it is empty')
+            cprint('failed\nOptional train path is a directory but it is empty', 'red')
             exit(1)
 
-    colorprint(Color.GREEN, 'done')
+    cprint('done', 'green')
     return
