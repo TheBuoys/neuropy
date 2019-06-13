@@ -15,6 +15,7 @@
 import tensorflow as tf
 import importlib
 import os
+
 from neuropy.utility.validator import validate_model
 from neuropy.utility.validator import validate_model_configuration
 from neuropy.utility.configuration import load_model_configuration

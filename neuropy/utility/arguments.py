@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import argparse
+import os
 
 from neuropy.utility.path import Path
 
@@ -20,10 +21,6 @@ def get_arguments(arguments=None):
         parser = argparse.ArgumentParser(
                 prog='neuro'
         )
-
-        parser.add_argument('-c', '--configuration',
-                default='./project.json',
-                help='path to project configuration to load')
 
         parser.add_argument('-d', '--debug',
                 action='store_true',
@@ -43,7 +40,7 @@ def get_arguments(arguments=None):
 
         parser.add_argument('project_path',
                 action=Path,
-                default='./',
+                default=os.getcwd(),
                 help='Path',
                 nargs='?'
         )
