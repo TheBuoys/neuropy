@@ -93,15 +93,10 @@ def validate_model_configuration(path, configuration):
     print('Validating model configuration...', end=' ')
 
     load_from = os.path.exists(os.path.join(os.path.abspath(path), configuration['load_from']))
-    load_from_path_not_empty = None
+    load_from_path_not_empty = os.listdir(os.path.join(os.path.abspath(path), configuration["load_from"])) if load_from else None
     save_to = os.path.exists(os.path.join(os.path.abspath(path), configuration['save_to']))
 
-    # Add spaghetti to fix empty dir failure
-    # TODO: Fix spaghetti
-    if load_from:
-        load_from_path_not_empty = os.listdir(os.path.join(os.path.abspath(path), configuration["load_from"]))
-
-    # Validate log path
+    # Validate load from and save to paths
     if not (load_from and save_to and load_from_path_not_empty):
         cprint('failed', 'yellow')
 
@@ -119,25 +114,22 @@ def validate_model_configuration(path, configuration):
 
     return
 
-# TODO: Make this a little more elegant
 def validate_optional_arguments(arguments):
     print('Validating optional paths...', end=' ')
 
-    if arguments.infer_path:
-        if not (os.path.exists(arguments.infer_path)):
+    if arguments.infer_data:
+        if not (os.path.exists(arguments.infer_data)):
             cprint('failed\nOptional infer path was specified but does not exist', 'red')
             exit(1)
-
-        if (os.path.isdir(arguments.infer_path) and not os.listdir(arguments.infer_path)):
+        elif (os.path.isdir(arguments.infer_data) and not os.listdir(arguments.infer_data)):
             cprint('failed\nOptional infer path is a directory but it is empty', 'red')
             exit(1)
 
-    if arguments.train_path:
-        if not (os.path.exists(arguments.train_path)):
+    if arguments.train_data:
+        if not (os.path.exists(arguments.train_data)):
             cprint('failed\nOptional train path was specified but does not exist', 'red')
             exit(1)
-
-        if (os.path.isdir(arguments.train_path) and not os.listdir(arguments.train_path)):
+        elif (os.path.isdir(arguments.train_data) and not os.listdir(arguments.train_data)):
             cprint('failed\nOptional train path is a directory but it is empty', 'red')
             exit(1)
 
