@@ -48,7 +48,6 @@ class Agent:
             self.load_path = None
         self.save_path = os.path.join(self.model_path, self.model_configuration["save_to"])
 
-        # TODO: Maybe find a less jank way to do this, if one exists
         # Gets the "run_model" method from the model object in the given module path
         module = self.import_model_module(os.path.join(self.model_path,"model.py"))
         self.model = module.Model(self.model_configuration, self.model_parameters)
