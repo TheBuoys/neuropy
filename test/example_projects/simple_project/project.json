@@ -1,0 +1,8 @@
+{
+    "name": "Simple Project",
+    "data": "./data/",
+    "logs": "./logs/",
+    "output": "./predictions/",
+    "data_loader": "../../mock_objects/simple_data_loader.py",
+    "model": "../../example_models/simple_model/"
+}

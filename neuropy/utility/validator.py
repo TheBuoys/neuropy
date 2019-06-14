@@ -35,16 +35,17 @@ def validate_project(configuration):
         colorprint(Color.RED, 'failed\nData Loader not found')
         exit(1)
 
-    # Validate data path not empty
-    data_directory = os.path.exists(configuration['data'])
-    data = os.listdir(configuration['data'])
-    if not (data and data_directory):
-        colorprint(Color.RED, 'failed')
-        if not data_directory:
-            colorprint(Color.RED, 'Data directory not found')
-        elif not data:
-            colorprint(Color.RED, 'Data directory is empty')
-        exit(1)
+    # Validate data path not empty if set
+    if (configuration['data']):
+        data_directory = os.path.exists(configuration['data'])
+        data = os.listdir(configuration['data'])
+        if not (data and data_directory):
+            colorprint(Color.RED, 'failed')
+            if not data_directory:
+                colorprint(Color.RED, 'Data directory not found')
+            elif not data:
+                colorprint(Color.RED, 'Data directory is empty')
+            exit(1)
 
     logs = os.path.exists(configuration['logs'])
     output = os.path.exists(configuration['output'])

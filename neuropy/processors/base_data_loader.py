@@ -19,14 +19,11 @@ class BaseDataLoader:
         self.configuration = configuration
         self.data_path = configuration['data']
 
-    @abstractmethod
     def get_inference_dataset():
         pass
 
-    @abstractmethod
     def get_training_dataset():
         pass
 
-    @abstractmethod
     def get_validation_dataset():
         pass
