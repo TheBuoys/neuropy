@@ -13,28 +13,20 @@
 # limitations under the License.
 
 import tensorflow as tf
+import sys
+import tensorflow as tf
 
-
-def run_model(features, labels, mode, params, config):
-    # model = tf.keras.layers.InputLayer(input_tensor=features)
+class Model(tf.keras.Model):
+    def __init__(self):
+        super(Model, self).__init__()
     
-    # feature_columns = [tf.feature_column.numeric_column('input')]
-    # input_layer = tf.compat.v1.feature_column.input_layer({"input": features}, feature_columns)
-
-    # previous_layer = input_layer
-    # for layer_size in [10,10]:
-    #     previous_layer = tf.keras.layers.dense(input_layer, units=layer_size, activation=tf.nn.relu)
-
-    # output_layer = tf.layers.dense(previous_layer, 1, activation=None)
-
-    # labelled_features = {"input": features}
-
-    model = tf.keras.Sequential([
-        tf.keras.layers.Dense(10),
-        tf.keras.layers.Dense(1)
-    ])
-
+    @tf.function
+    def call(self):
+        pass
+   
     # Adjust for the fact that TF gets mad if you don't have batch dimensions
+    
+
     labels_batched = tf.reshape(labels,[1,1])
     features_batched = tf.reshape(features, [1,1])
     loss = None
@@ -48,6 +40,10 @@ def run_model(features, labels, mode, params, config):
     elif mode == tf.estimator.ModeKeys.PREDICT:
         pass
 
+    
+fit(x=None, y=None, batch_size=None, epochs=1, verbose=1, callbacks=None, 
+validation_split=0.0, validation_data=None, shuffle=True, class_weight=None, sample_weight=None, 
+initial_epoch=0, steps_per_epoch=None, validation_steps=None, validation_freq=1)
 
     return tf.estimator.EstimatorSpec(
         mode=mode,

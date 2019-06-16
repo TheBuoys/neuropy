@@ -23,8 +23,5 @@ class DataLoader(BaseDataLoader):
 
     def get_training_dataset(self):
         # return tf.data.Dataset.from_tensor_slices(self.get_labelled_data()).repeat(20).batch(1)
-        return tf.data.Dataset.from_tensor_slices((self.get_data(), self.get_data())).batch(1).repeat(20)
+        return tf.data.Dataset.from_tensor_slices((self.get_data(), self.get_data()))
 
-
-    def get_validation_dataset(self):
-        return tf.data.Dataset.from_tensor_slices(self.get_labelled_data()).batch(1)
