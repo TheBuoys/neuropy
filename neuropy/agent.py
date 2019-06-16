@@ -49,26 +49,22 @@ class Agent:
         # TODO: Maybe find a less jank way to do this, if one exists
         # Gets the "run_model" method from the model object in the given module path
         module = self.import_model_module(os.path.join(self.model_path,"model.py"))
-        self.model = getattr(module,"model")
+        self.model = getattr(module,"Model")
         
+        self.configuration, self.model_parameters
 
         # Create tensorflow estimator to run the model
         #TODO: something with this
-        self.estimator = tf.estimator.Estimator(**{
-            "model_dir": self.save_path,
-            "config": tf.estimator.RunConfig(**{
-                "keep_checkpoint_max": self.model_configuration["keep_checkpoint_max"],
-                "log_step_count_steps": self.model_configuration["log_step_count_steps"],
-                "save_summary_steps": self.model_configuration["save_summary_steps"]
-            }),
-            "params": self.model_parameters,
-            "warm_start_from": self.load_path
-        })
-
-        model.fit(x=None, y=None, batch_size=None, epochs=1, verbose=1, callbacks=None, 
-validation_split=0.0, validation_data=None, shuffle=True, class_weight=None, sample_weight=None, 
-initial_epoch=0, steps_per_epoch=None, validation_steps=None, validation_freq=1)
-
+        # self.estimator = tf.estimator.Estimator(**{
+        #     "model_dir": self.save_path,
+        #     "config": tf.estimator.RunConfig(**{
+        #         "keep_checkpoint_max": self.model_configuration["keep_checkpoint_max"],
+        #         "log_step_count_steps": self.model_configuration["log_step_count_steps"],
+        #         "save_summary_steps": self.model_configuration["save_summary_steps"]
+        #     }),
+        #     "params": self.model_parameters,
+        #     "warm_start_from": self.load_path
+        # })
 
     def import_model_module(self, path):
         """Import the method used to run the model from a given model path.""" 
@@ -84,15 +80,10 @@ initial_epoch=0, steps_per_epoch=None, validation_steps=None, validation_freq=1)
         spec.loader.exec_module(module)
         return module
 
-    #TODO: Map these params to actual inputs
     def train(self):
-        #TODO: Get these values from the model config files
-        checkpoint = tf.keras.callbacks.ModelCheckpoint("weights.{epoch:02d}-{val_loss:.2f}.hdf5", monitor='val_loss', verbose=1, save_best_only=True, mode='min')
-        callbacks = [checkpoint]
-        self.model.fit(x=self.data_loader.get_training_dataset(), batch_size=1, 
-        epochs=5, verbose=2, validation_split=0.3, shuffle=True, callbacks=callbacks)
-
+        self.model.fit(data_loader.get_training_dataset())
 
     def infer(self):
-        predictions = list(self.estimator.predict(input_fn=self.data_loader.get_inference_dataset))
+        # predictions = list(self.estimator.predict(input_fn=self.data_loader.get_inference_dataset))
+        predictions = [self.model.predict(self.data_loader.get_inference_dataset())]
         return predictions

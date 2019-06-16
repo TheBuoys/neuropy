@@ -6,11 +6,41 @@
     "title": "The Root Schema",
     "required": [],
     "properties": {
-      "test": {
-        "$id": "#/properties/test",
-        "type": "string",
-        "title": "The Test Schema",
+      "batch_size": {
+        "$id": "#/properties/batch_size",
+        "type": "integer",
+        "title": "lol",
         "default": "",
+        "examples": [
+          "None"
+        ],
+        "pattern": "^(.*)$"
+      },
+      "epochs": {
+        "$id": "#/properties/epochs",
+        "type": "integer",
+        "title": "lol",
+        "default": "",
+        "examples": [
+          "None"
+        ],
+        "pattern": "^(.*)$"
+      },
+      "validation_split": {
+        "$id": "#/properties/epochs",
+        "type": "number",
+        "title": "lol",
+        "default": "",
+        "examples": [
+          "None"
+        ],
+        "pattern": "^(.*)$"
+      },
+      "shuffle": {
+        "$id": "#/properties/shuffle",
+        "type": "boolean",
+        "title": "lol",
+        "default": true,
         "examples": [
           "None"
         ],

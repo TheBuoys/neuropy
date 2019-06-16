@@ -1,14 +1,12 @@
 import sys
 import tensorflow as tf
 import numpy as np
-
-sys.path.append("..")
-from neuropy.processors.base_data_loader import BaseDataLoader
+import neuropy
 
 # tf.enable_eager_execution()
 
 #Simple example data loader for testing.
-class DataLoader(BaseDataLoader):
+class DataLoader(neuropy.base.BaseDataLoader):
     def __init__(self, configuration, arguments):
         super(DataLoader,self).__init__(configuration, arguments)
 
