@@ -26,10 +26,6 @@ class Agent:
         self.configuration = configuration
         self.arguments = arguments
 
-        # Import data loader from path
-        loader_module = self.import_data_loader_module(configuration['data_loader'])
-        self.data_loader = loader_module.DataLoader(configuration, arguments)
-
         # Import model from path
         self.model_path = os.path.abspath(configuration['model'])
         validate_model(self.model_path)
@@ -38,6 +34,11 @@ class Agent:
         self.model_configuration = load_model_configuration(os.path.join(self.model_path,"configuration.json"))
         validate_model_configuration(self.model_path, self.model_configuration)
         self.model_parameters = load_model_parameters(os.path.join(self.model_path,"parameters.json"))
+
+        # Import data loader from path
+        loader_module = self.import_data_loader_module(configuration['data_loader'])
+        self.data_loader = loader_module.DataLoader(configuration, self.model_parameters)
+
 
         # Get loading and saving paths from configuration
         if self.model_configuration["load_from"]:
@@ -49,9 +50,9 @@ class Agent:
         # TODO: Maybe find a less jank way to do this, if one exists
         # Gets the "run_model" method from the model object in the given module path
         module = self.import_model_module(os.path.join(self.model_path,"model.py"))
-        self.model = getattr(module,"Model")
-        
-        self.configuration, self.model_parameters
+        self.model = module.Model(self.model_configuration, self.model_parameters)
+        print(type(self.model))
+        # self.configuration, self.model_parameters
 
         # Create tensorflow estimator to run the model
         #TODO: something with this
@@ -81,9 +82,12 @@ class Agent:
         return module
 
     def train(self):
-        self.model.fit(data_loader.get_training_dataset())
+        data = self.data_loader.get_training_dataset()
+        print(data)
+        self.model.fit(x=data,steps_per_epoch=30)
 
     def infer(self):
         # predictions = list(self.estimator.predict(input_fn=self.data_loader.get_inference_dataset))
-        predictions = [self.model.predict(self.data_loader.get_inference_dataset())]
+        predictions = [self.model.predict(self.data_loader.get_inference_dataset(),steps=30)]
+
         return predictions

@@ -7,19 +7,19 @@ import neuropy
 
 #Simple example data loader for testing.
 class DataLoader(neuropy.base.BaseDataLoader):
-    def __init__(self, configuration, arguments):
-        super(DataLoader,self).__init__(configuration, arguments)
+    def __init__(self, configuration, model_parameters):
+        super(DataLoader, self).__init__(configuration, model_parameters)
 
     def get_data(self):
-        return np.array([0.1, 0.2, 0.3, 0.4])
-
-    def get_labelled_data(self):
-        return np.transpose(np.array([self.get_data(), self.get_data()]))
+        return tf.data.Dataset.from_tensor_slices(np.array([0.1, 0.2, 0.3, 0.4]))
 
     def get_inference_dataset(self):
-        return tf.data.Dataset.from_tensor_slices(self.get_data()).batch(1)
+        return self.get_data().batch(self.model_parameters["batch_size"])
 
     def get_training_dataset(self):
-        # return tf.data.Dataset.from_tensor_slices(self.get_labelled_data()).repeat(20).batch(1)
-        return tf.data.Dataset.from_tensor_slices((self.get_data(), self.get_data()))
+        data = tf.data.Dataset.zip((self.get_data(), self.get_data()))
+        data = data.batch(self.model_parameters["batch_size"])
+        data = data.repeat(self.model_parameters["epochs"])
+        data = data.shuffle(20)
+        return data
 

@@ -10,7 +10,7 @@
         "$id": "#/properties/batch_size",
         "type": "integer",
         "title": "lol",
-        "default": "",
+        "default": 0,
         "examples": [
           "None"
         ],
@@ -20,7 +20,7 @@
         "$id": "#/properties/epochs",
         "type": "integer",
         "title": "lol",
-        "default": "",
+        "default": 5,
         "examples": [
           "None"
         ],
@@ -30,7 +30,7 @@
         "$id": "#/properties/epochs",
         "type": "number",
         "title": "lol",
-        "default": "",
+        "default": 0.3,
         "examples": [
           "None"
         ],

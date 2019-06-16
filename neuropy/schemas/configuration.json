@@ -7,7 +7,7 @@
   "required": [
     "load_from",
     "save_to",
-    "save_metric",
+    "eval_metric",
     "keep_checkpoint_max",
     "log_step_count_steps",
     "save_summary_steps"
@@ -40,7 +40,7 @@
       "default": "",
       "examples": [
         "val_loss",
-        "val_max"
+        "val_acc"
       ],
       "pattern": "^(.*)$"
     },

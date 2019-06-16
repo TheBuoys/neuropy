@@ -4,6 +4,7 @@ import sys
 
 sys.path.append("..")
 from neuropy.agent import Agent
+import tensorflow as tf
 
 
 class TestAgent(unittest.TestCase):
@@ -13,7 +14,7 @@ class TestAgent(unittest.TestCase):
             "data_loader": "./mock_objects/simple_data_loader.py",
             "data": None
         })
-        arguments = Bunch()
+        arguments = Bunch({})
         self.agent = Agent(configuration, arguments)
         return super().setUp()
 
@@ -22,8 +23,8 @@ class TestAgent(unittest.TestCase):
 
     def test_training(self):
         self.agent.train()
-        output = self.agent.infer()
-        print(output)
+        outputs = self.agent.infer()
+        print(outputs)
 
 if __name__ == "__main__":
     unittest.main()

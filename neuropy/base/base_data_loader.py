@@ -14,8 +14,8 @@
 from abc import ABC, abstractmethod
 
 class BaseDataLoader:
-    def __init__(self, configuration, arguments):
-        self.arguments = arguments
+    def __init__(self, configuration, model_parameters):
+        self.model_parameters = model_parameters
         self.configuration = configuration
         self.data_path = configuration['data']
 
