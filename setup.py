@@ -48,4 +48,5 @@ setuptools.setup(
             'neuro=neuropy.__main__:main',
         ],
     },
+    test_suite = 'test',
 )

@@ -12,8 +12,8 @@ import tensorflow as tf
 class TestAgent(unittest.TestCase):
     def setUp(self):
         configuration = Bunch({
-            "model": "./example_models/simple_model",
-            "data_loader": "./mock_objects/simple_data_loader.py",
+            "model": "./test/example_models/simple_model",
+            "data_loader": "./test/mock_objects/simple_data_loader.py",
             "data": None
         })
         arguments = Bunch({})
