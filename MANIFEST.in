@@ -4,3 +4,4 @@ include *.md
 # Include the license file and author list
 include LICENSE
 include AUTHORS
+include CHANGELOG
