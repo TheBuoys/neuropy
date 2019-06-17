@@ -58,6 +58,10 @@ def load_schema(schema_name):
 
 def load_project_configuration(json_file):
     print('Loading project configuration...', end=' ')
+
+    if (not os.path.exists(json_file)):
+        cprint('failed\nProject configuration file not found at ' + json_file, 'red')
+        exit(1)
     
     configuration = load_configuration_from_json(json_file)
     schema = load_schema('project')

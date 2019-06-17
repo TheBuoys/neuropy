@@ -118,19 +118,21 @@ def validate_model_configuration(path, configuration):
 def validate_optional_arguments(arguments):
     print('Validating optional paths...', end=' ')
 
-    if arguments.infer_data:
-        if not (os.path.exists(arguments.infer_data)):
+    if arguments.infer_path:
+        if not (os.path.exists(arguments.infer_path)):
             cprint('failed\nOptional infer path was specified but does not exist', 'red')
             exit(1)
-        elif (os.path.isdir(arguments.infer_data) and not os.listdir(arguments.infer_data)):
+
+        if (os.path.isdir(arguments.infer_path) and not os.listdir(arguments.infer_path)):
             cprint('failed\nOptional infer path is a directory but it is empty', 'red')
             exit(1)
 
-    if arguments.train_data:
-        if not (os.path.exists(arguments.train_data)):
+    if arguments.train_path:
+        if not (os.path.exists(arguments.train_path)):
             cprint('failed\nOptional train path was specified but does not exist', 'red')
             exit(1)
-        elif (os.path.isdir(arguments.train_data) and not os.listdir(arguments.train_data)):
+
+        if (os.path.isdir(arguments.train_path) and not os.listdir(arguments.train_path)):
             cprint('failed\nOptional train path is a directory but it is empty', 'red')
             exit(1)
 
