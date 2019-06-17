@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import argparse
+import os
 
 from neuropy.utility.path import Path
 
@@ -20,10 +21,6 @@ def get_arguments(arguments=None):
         parser = argparse.ArgumentParser(
                 prog='neuro'
         )
-
-        parser.add_argument('-c', '--configuration',
-                default='./project.json',
-                help='path to project configuration to load')
 
         parser.add_argument('-d', '--debug',
                 action='store_true',
@@ -37,13 +34,13 @@ def get_arguments(arguments=None):
                 action='store_true',
                 help='perform inference')
 
-        parser.add_argument('--infer_path',
+        parser.add_argument('--infer_data',
                 default=None,
-                help='optional path to perform inference from')
+                help='alternate path to inference data')
 
         parser.add_argument('project_path',
                 action=Path,
-                default='./',
+                default=os.getcwd(),
                 help='Path',
                 nargs='?'
         )
@@ -52,9 +49,9 @@ def get_arguments(arguments=None):
                 action='store_true',
                 help='perform model training')
 
-        parser.add_argument('--train_path',
+        parser.add_argument('--train_data',
                 default=None,
-                help='optional path to perform training from')
+                help='alternate path to training data')
 
         parser.add_argument('-v', '--verbose',
                 action='store_true',

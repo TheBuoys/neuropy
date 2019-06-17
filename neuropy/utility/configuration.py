@@ -15,6 +15,7 @@
 import json
 import os
 import sys
+import pkg_resources
 
 from jsonschema import Draft7Validator
 from termcolor import cprint
@@ -25,26 +26,42 @@ def load_configuration_from_json(json_file):
     :param json_file:
     :return: configuration (dictionary)
     """
-    with open(json_file, 'r') as configuration_file:
-        configuration = json.load(configuration_file)
+    try:
+        with open(json_file, 'r') as configuration_file:
+            configuration = json.load(configuration_file)
+    except ValueError:
+        cprint('failed\n' + json_file + ' is not a valid JSON file', 'red')
+        exit(1)
+    except FileNotFoundError:
+        cprint('failed\n' + json_file + ' not found', 'red')
+        exit(1)
+    except:
+        cprint('failed\nUnable to open ' + json_file, 'red')
+        exit(1)
 
     return configuration
 
+def load_schema(schema_name):
+    """
+    Loads a schema from a schema resource.
+    :param schema_name:
+    :return: schema (dictionary)
+    """
+    try:
+        schema_resource = pkg_resources.resource_string('neuropy', 'schemas/' + schema_name + '.json')
+        schema = json.loads(schema_resource)
+    except:
+        cprint('failed\nInvalid schema', 'red')
+        exit(1)
+
+    return schema
+
 def load_project_configuration(json_file):
     print('Loading project configuration...', end=' ')
-
-    if (not os.path.exists(json_file)):
-        cprint('failed\nProject configuration file not found at ' + json_file, 'red')
-        exit(1)
     
     configuration = load_configuration_from_json(json_file)
-    os.path.join(os.path.dirname(__file__), '..')
-    # This does not work if the __main__ is not in the project root
-    # TODO: get a consistent way to refer to the project root
-    # schema_path = os.path.join(os.path.dirname(sys.modules['__main__'].__file__), 'src/schemas/project.json')
-    schema_path = os.path.join(os.path.dirname(__file__), '../schemas/project.json')
+    schema = load_schema('project')
 
-    schema = load_configuration_from_json(schema_path)
     validator = Draft7Validator(schema)
     if validator.is_valid(configuration):
         cprint('done', 'green')
@@ -58,8 +75,7 @@ def load_project_configuration(json_file):
 def load_model_configuration(json_file):
     print('Loading model configuration...', end=' ')
     configuration = load_configuration_from_json(json_file)
-    schema_path = os.path.join(os.path.dirname(__file__), '../schemas/configuration.json')
-    schema = load_configuration_from_json(schema_path)
+    schema = load_schema('configuration')
     validator = Draft7Validator(schema)
     if validator.is_valid(configuration):
         cprint('done', 'green')
@@ -75,8 +91,7 @@ def load_model_configuration(json_file):
 def load_model_parameters(json_file):
     print('Loading model parameters...', end=' ')
     configuration = load_configuration_from_json(json_file)
-    schema_path = os.path.join(os.path.dirname(__file__), '../schemas/parameters.json')
-    schema = load_configuration_from_json(schema_path)
+    schema = load_schema('parameters')
     validator = Draft7Validator(schema)
     if validator.is_valid(configuration):
         cprint('done', 'green')

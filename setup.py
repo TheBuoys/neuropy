@@ -3,7 +3,6 @@ import setuptools
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
-# TODO: complete this configuration
 setuptools.setup(
     name="NeuroPy",
     version="1.0.0",
@@ -13,18 +12,30 @@ setuptools.setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://mindcloud.dev/neurology/neuropy",
-    project_urls={  # Optional
+    project_urls={
         'Bug Reports': 'https://mindcloud.dev/neurology/neuropy/issues',
     },
     packages=setuptools.find_packages(),
-    # needs updating
+    package_dir={
+        'neuropy' : 'neuropy',
+    },
+    package_data={
+        'neuropy' : [ 'schemas/*.json' ],
+    },
     classifiers=[
-        "Programming Language :: Python :: 3",
-        "License :: OSI Approved :: Apache License",
+        "Topic :: Scientific/Engineering :: Artificial Intelligence",
+        "Topic :: Software Development :: Libraries :: Application Frameworks",
+        "Development Status :: 4 - Beta",
+        "License :: OSI Approved :: Apache Software License",
+        "Programming Language :: Python :: 3 :: Only",
         "Operating System :: OS Independent",
+        "Environment :: Console",
+        "Intended Audience :: Developers",
+        "Intended Audience :: Science/Research"
+        "Natural Language :: English"
     ],
     keywords='tensorflow development',
-    # needs verification
+    license='Apache License 2.0',
     python_requires='>=3.0.*, <4',
     install_requires=[
             'tensorflow',

@@ -26,7 +26,7 @@ def run(arguments):
     output = None
 
     # Get configuration
-    configuration = load_project_configuration(arguments.configuration)
+    configuration = load_project_configuration(os.path.join(arguments.project_path, 'project.json'))
 
     # Validate project configuration
     validate_project(configuration)
