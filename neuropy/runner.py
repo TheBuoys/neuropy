@@ -16,11 +16,11 @@ import os
 import logging
 
 from neuropy.utility.arguments import get_arguments
-from neuropy.utility.printer import Color, colorprint
 from neuropy.utility.configuration import load_project_configuration
 from neuropy.utility.validator import validate_project
 from neuropy.utility.validator import validate_optional_arguments
 from neuropy.agent import Agent
+from termcolor import cprint
 
 def run(arguments):
     output = None
@@ -39,35 +39,35 @@ def run(arguments):
     logger = logging.getLogger('tensorflow')
     if arguments.debug:
         logger.setLevel(logging.DEBUG)
-        colorprint(Color.GREEN, "DEBUG")
+        cprint('DEBUG', 'green')
     elif arguments.verbose:
         logger.setLevel(logging.INFO)
-        colorprint(Color.GREEN, "VERBOSE")
+        cprint('VERBOSE', 'green')
     else:
         logger.setLevel(logging.CRITICAL)
-        colorprint(Color.GREEN, "NONE", end=' ')
+        cprint('NONE', 'green', end=' ')
         print('(default)')
 
     # Set up test/train environment
     if not (arguments.infer or arguments.train):
-        colorprint(Color.YELLOW, 'Run mode not selected, performing dry run...', end=' ')
-        print('(Try `start -h` for more info)')
+        cprint('Run mode not selected, performing dry run...', 'yellow', end=' ')
+        print('(Try `neuro -h` for more info)')
     
     # Initialize agent
-    colorprint(Color.GREEN, 'Initializing agent...')
+    print('Initializing agent...')
     agent = Agent(configuration, arguments)
     
     # Start training routine
     if arguments.train:
-        colorprint(Color.GREEN, 'Training model...')
+        print('Training model...')
         agent.train()
 
     # Start inference routine
     if arguments.infer:
-        colorprint(Color.GREEN, 'Performing inference...')
+        print('Performing inference...')
         output = agent.infer()
 
-    colorprint(Color.GREEN, 'All operations successful. Exiting ' + configuration['name'] + '.')
+    cprint('All operations successful. Exiting ' + configuration['name'] + '.', 'green')
     print('(Logs saved to ' + os.path.abspath(configuration['logs'])  + ')')
     
     return output

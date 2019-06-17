@@ -1,31 +1,51 @@
 # Use official Python language image:
 image: python:latest
 
-# Change pip's cache directory to be inside the project directory since we can
-# only cache local items.
-variables:
-  PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
-
-# Cache virtualenv because Pip's cache doesn't store the python packages
-cache:
-  paths:
-    - .cache/pip
-    - .venv/
-
 before_script:
-  - python --version
+  - python3 setup.py install
 
 stages:
-  - test
+  - unit tests
+  - run tests
   - deploy
 
-test:
-  stage: test
+unit test 1:
+  stage: unit tests
   script: 
-    - echo "Testing occurs here."
+    - echo "Unit tests occur here."
+
+entry point:
+  stage: run tests
+  script: 
+    - neuro -h
+#    - neuro
+
+environment:
+  stage: run tests
+  script: 
+    - neuro -h
+#    - neuro -e
+
+train:
+  stage: run tests
+  script: 
+    - neuro -h
+#    - neuro -t
+
+infer:
+  stage: run tests
+  script: 
+    - neuro -h
+#    - neuro -i
+
+MindCloud:
+  stage: deploy
+  script:
+    - echo "MindCloud deploy occurs here."
+  when: manual
 
 pypi:
   stage: deploy
   script:
-    - echo "Deploy occurs here."
+    - echo "PyPi deploy occurs here."
   when: manual
