@@ -27,7 +27,7 @@ setuptools.setup(
     # needs verification
     python_requires='>=3.0.*, <4',
     install_requires=[
-            'tensorflow',
+            'tensorflow==2.0.0-beta1',
             'termcolor',
             'jsonschema',
             'virtualenv'
