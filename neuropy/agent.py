@@ -83,8 +83,7 @@ class Agent:
 
     def train(self):
         data = self.data_loader.get_training_dataset()
-        print(data)
-        self.model.fit(x=data,steps_per_epoch=30)
+        self.model.fit(x=data)
 
     def infer(self):
         # predictions = list(self.estimator.predict(input_fn=self.data_loader.get_inference_dataset))

@@ -21,7 +21,8 @@ class Model(neuropy.base.BaseModel):
         self.parameters = parameters
         self.all = [
             tf.keras.layers.Input(batch_shape=(self.parameters["batch_size"],1),name='input', dtype=tf.dtypes.float16),
-            tf.keras.layers.Dense(10, activation='relu',name='middle'),
+            tf.keras.layers.Dense(10, activation='relu'),
+            tf.keras.layers.Dense(10, activation='relu'),
             tf.keras.layers.Dense(1,name='out')
         ]
         super().__init__(configuration, self.all, **kwargs)
