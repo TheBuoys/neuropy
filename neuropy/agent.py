@@ -51,7 +51,6 @@ class Agent:
         # Gets the "run_model" method from the model object in the given module path
         module = self.import_model_module(os.path.join(self.model_path,"model.py"))
         self.model = module.Model(self.model_configuration, self.model_parameters)
-        print(type(self.model))
         # self.configuration, self.model_parameters
 
         # Create tensorflow estimator to run the model
