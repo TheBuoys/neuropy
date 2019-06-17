@@ -81,12 +81,13 @@ class Agent:
         spec.loader.exec_module(module)
         return module
 
-    def train(self):
-        data = self.data_loader.get_training_dataset()
+    def train(self, data = None):
+        data = data if data else self.data_loader.get_training_dataset()
         self.model.fit(x=data)
 
-    def infer(self):
+    def infer(self, data = None):
+        data = data if data else self.data_loader.get_inference_dataset()
         # predictions = list(self.estimator.predict(input_fn=self.data_loader.get_inference_dataset))
-        predictions = [self.model.predict(self.data_loader.get_inference_dataset(),steps=30)]
+        predictions = [self.model.predict(x=data,steps=30)]
 
         return predictions

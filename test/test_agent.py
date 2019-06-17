@@ -1,6 +1,8 @@
 import unittest
 from bunch import Bunch
 import sys
+import numpy as np
+import operator
 
 sys.path.append("..")
 from neuropy.agent import Agent
@@ -21,10 +23,13 @@ class TestAgent(unittest.TestCase):
     def tearDown(self):
         return super().tearDown()
 
-    def test_training(self):
+    def test_training_loader(self):
         self.agent.train()
-        outputs = self.agent.infer()
-        print(outputs)
+        infer = np.array([0.1,0.2,0.3,0.4])
+        test_set = tf.data.Dataset.from_tensor_slices(infer).batch(2)
+        outputs = np.array(self.agent.infer(test_set)[0]).transpose()[0]
+        comparison = outputs-infer
+        assert(all(values < 0.05 for values in comparison))
 
 if __name__ == "__main__":
     unittest.main()
