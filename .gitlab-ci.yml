@@ -12,6 +12,7 @@ stages:
 agent:
   stage: unit tests
   script: 
+    - pip install -r requirements.txt
     - python3 setup.py test
 
 entry point:
