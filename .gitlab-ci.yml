@@ -7,12 +7,13 @@ before_script:
 stages:
   - unit tests
   - run tests
-  - deploy
+  - package
 
-unit test 1:
+agent:
   stage: unit tests
   script: 
-    - echo "Unit tests occur here."
+    - pip install -r requirements.txt
+    - python3 setup.py test
 
 entry point:
   stage: run tests
@@ -38,14 +39,23 @@ infer:
     - neuro -h
 #    - neuro -i
 
-MindCloud:
-  stage: deploy
+experimental:
+  stage: package
+  before_script:
+    - pip install twine
   script:
-    - echo "MindCloud deploy occurs here."
-  when: manual
+    - python setup.py sdist
+    - twine register -u $PYPI_USERNAME -p $PYPI_PASSWORD --repository-url https://pypi.mindcloud.tools/mindcloud/experimental dist/*
+    - twine upload -u $PYPI_USERNAME -p $PYPI_PASSWORD --repository-url https://pypi.mindcloud.tools/mindcloud/experimental dist/*
+  only:
+    - master
 
-pypi:
-  stage: deploy
+release:
+  stage: package
+  before_script:
+    - pip install twine
   script:
-    - echo "PyPi deploy occurs here."
+    - python setup.py sdist
+    - twine register -u $PYPI_USERNAME -p $PYPI_PASSWORD --repository-url https://pypi.mindcloud.tools/mindcloud/release dist/*
+    - twine upload -u $PYPI_USERNAME -p $PYPI_PASSWORD --repository-url https://pypi.mindcloud.tools/mindcloud/release dist/*
   when: manual

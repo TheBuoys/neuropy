@@ -4,15 +4,43 @@
     "$id": "http://example.com/root.json",
     "type": "object",
     "title": "The Root Schema",
-    "required": [
-      "test"
-    ],
+    "required": [],
     "properties": {
-      "test": {
-        "$id": "#/properties/test",
-        "type": "string",
-        "title": "The Test Schema",
-        "default": "",
+      "batch_size": {
+        "$id": "#/properties/batch_size",
+        "type": "integer",
+        "title": "lol",
+        "default": 0,
+        "examples": [
+          "None"
+        ],
+        "pattern": "^(.*)$"
+      },
+      "epochs": {
+        "$id": "#/properties/epochs",
+        "type": "integer",
+        "title": "lol",
+        "default": 5,
+        "examples": [
+          "None"
+        ],
+        "pattern": "^(.*)$"
+      },
+      "validation_split": {
+        "$id": "#/properties/epochs",
+        "type": "number",
+        "title": "lol",
+        "default": 0.3,
+        "examples": [
+          "None"
+        ],
+        "pattern": "^(.*)$"
+      },
+      "shuffle": {
+        "$id": "#/properties/shuffle",
+        "type": "boolean",
+        "title": "lol",
+        "default": true,
         "examples": [
           "None"
         ],

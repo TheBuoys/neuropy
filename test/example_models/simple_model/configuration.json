@@ -1,0 +1,9 @@
+{
+    "load_from": "weights/default",
+    "save_to": "weights/default",
+    "save_best": false,
+    "eval_metric": "val_loss",
+    "keep_checkpoint_max": 5,
+    "log_step_count_steps": 100,
+    "save_summary_steps": 100
+}
