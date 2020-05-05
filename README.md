@@ -1,4 +1,4 @@
-NeuroPy - A Collection of UI Themes for DevPi Server
+NeuroPy - Python package for interacting with standardized TensorFlow models
 ==================
 
 ## Table of Contents
